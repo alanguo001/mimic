@@ -298,6 +298,7 @@ am_libttsmimic_la_OBJECTS = $(am__objects_1) \
 	src/utils/libttsmimic_la-cst_string.lo \
 	src/utils/libttsmimic_la-cst_tokenstream.lo \
 	src/utils/libttsmimic_la-cst_url.lo \
+	src/utils/libttsmimic_la-cst_icu.lo \
 	src/utils/libttsmimic_la-cst_val.lo \
 	src/utils/libttsmimic_la-cst_val_const.lo \
 	src/utils/libttsmimic_la-cst_val_user.lo \
@@ -1115,6 +1116,8 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+ICU_CFLAGS = @ICU_CFLAGS@
+ICU_LIBS = @ICU_LIBS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -1240,8 +1243,8 @@ headers_HEADERS = include/cst_alloc.h include/cst_args.h \
 	include/cst_clunits.h include/config.h include/cst_diphone.h \
 	include/cst_endian.h include/cst_error.h \
 	include/cst_features.h include/cst_ffeatures.h \
-	include/cst_file.h include/cst_hrg.h include/cst_item.h \
-	include/cst_lexicon.h include/cst_lts.h \
+	include/cst_file.h include/cst_hrg.h include/cst_icu.h \
+	include/cst_item.h include/cst_lexicon.h include/cst_lts.h \
 	include/cst_lts_rewrites.h include/cst_phoneset.h \
 	include/cst_regex.h include/cst_relation.h include/cst_sigpr.h \
 	include/cst_socket.h include/cst_ss.h include/cst_string.h \
@@ -1312,14 +1315,14 @@ libttsmimic_la_SOURCES = $(src_audio_SOURCES) src/cg/cst_mlsa.h \
 	src/utils/cst_mmap_none.c src/utils/cst_mmap_posix.c \
 	src/utils/cst_mmap_win32.c src/utils/cst_socket.c \
 	src/utils/cst_string.c src/utils/cst_tokenstream.c \
-	src/utils/cst_url.c src/utils/cst_val.c \
+	src/utils/cst_url.c src/utils/cst_icu.c src/utils/cst_val.c \
 	src/utils/cst_val_const.c src/utils/cst_val_user.c \
 	src/utils/cst_wchar.c src/wavesynth/cst_clunits.c \
 	src/wavesynth/cst_diphone.c src/wavesynth/cst_reflpc.c \
 	src/wavesynth/cst_sigpr.c src/wavesynth/cst_sts.c \
 	src/wavesynth/cst_units.c
-libttsmimic_la_CFLAGS = $(AUDIODEFS)
-libttsmimic_la_LDFLAGS = -no-undefined
+libttsmimic_la_CFLAGS = $(ICU_CFLAGS) $(AUDIODEFS)
+libttsmimic_la_LDFLAGS = -no-undefined $(ICU_LIBS)
 
 ###############################
 libttsmimic_la_LIBADD = $(AUDIOLIBS) $(AUDIOLIBS) -lm
@@ -1989,6 +1992,8 @@ src/utils/libttsmimic_la-cst_string.lo: src/utils/$(am__dirstamp) \
 src/utils/libttsmimic_la-cst_tokenstream.lo:  \
 	src/utils/$(am__dirstamp) src/utils/$(DEPDIR)/$(am__dirstamp)
 src/utils/libttsmimic_la-cst_url.lo: src/utils/$(am__dirstamp) \
+	src/utils/$(DEPDIR)/$(am__dirstamp)
+src/utils/libttsmimic_la-cst_icu.lo: src/utils/$(am__dirstamp) \
 	src/utils/$(DEPDIR)/$(am__dirstamp)
 src/utils/libttsmimic_la-cst_val.lo: src/utils/$(am__dirstamp) \
 	src/utils/$(DEPDIR)/$(am__dirstamp)
@@ -2878,6 +2883,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_error.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_features.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_file_stdio.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_icu.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_mmap_none.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_mmap_posix.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/utils/$(DEPDIR)/libttsmimic_la-cst_mmap_win32.Plo@am__quote@
@@ -3400,6 +3406,13 @@ src/utils/libttsmimic_la-cst_url.lo: src/utils/cst_url.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/utils/cst_url.c' object='src/utils/libttsmimic_la-cst_url.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libttsmimic_la_CFLAGS) $(CFLAGS) -c -o src/utils/libttsmimic_la-cst_url.lo `test -f 'src/utils/cst_url.c' || echo '$(srcdir)/'`src/utils/cst_url.c
+
+src/utils/libttsmimic_la-cst_icu.lo: src/utils/cst_icu.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libttsmimic_la_CFLAGS) $(CFLAGS) -MT src/utils/libttsmimic_la-cst_icu.lo -MD -MP -MF src/utils/$(DEPDIR)/libttsmimic_la-cst_icu.Tpo -c -o src/utils/libttsmimic_la-cst_icu.lo `test -f 'src/utils/cst_icu.c' || echo '$(srcdir)/'`src/utils/cst_icu.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/utils/$(DEPDIR)/libttsmimic_la-cst_icu.Tpo src/utils/$(DEPDIR)/libttsmimic_la-cst_icu.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/utils/cst_icu.c' object='src/utils/libttsmimic_la-cst_icu.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libttsmimic_la_CFLAGS) $(CFLAGS) -c -o src/utils/libttsmimic_la-cst_icu.lo `test -f 'src/utils/cst_icu.c' || echo '$(srcdir)/'`src/utils/cst_icu.c
 
 src/utils/libttsmimic_la-cst_val.lo: src/utils/cst_val.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libttsmimic_la_CFLAGS) $(CFLAGS) -MT src/utils/libttsmimic_la-cst_val.lo -MD -MP -MF src/utils/$(DEPDIR)/libttsmimic_la-cst_val.Tpo -c -o src/utils/libttsmimic_la-cst_val.lo `test -f 'src/utils/cst_val.c' || echo '$(srcdir)/'`src/utils/cst_val.c

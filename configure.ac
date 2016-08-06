@@ -73,6 +73,11 @@ PKGCONFIG_MIMIC_CFLAGS="-I${includedir}/ttsmimic -I${includedir}/ttsmimic/lang"
 PKGCONFIG_MIMIC_LIBS="-L${libdir}"
 PKGCONFIG_MIMIC_DEPS=
 
+dnl Check ICU
+PKG_CHECK_MODULES([ICU], [icu-uc],
+                  [m4_ignore], [m4_ignore])
+
+PKGCONFIG_MIMIC_DEPS="${PKGCONFIG_MIMIC_DEPS} icu-uc"
 
 
 dnl

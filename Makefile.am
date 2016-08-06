@@ -16,8 +16,8 @@ lib_LTLIBRARIES =
 
 lib_LTLIBRARIES += libttsmimic.la
 libttsmimic_la_SOURCES = 
-libttsmimic_la_CFLAGS = 
-libttsmimic_la_LDFLAGS = -no-undefined
+libttsmimic_la_CFLAGS =  $(ICU_CFLAGS)
+libttsmimic_la_LDFLAGS = -no-undefined $(ICU_LIBS)
 libttsmimic_la_LIBADD = 
 
 libttsmimic_lang_all_langs_la_SOURCES = main/mimic_lang_list.c
@@ -527,6 +527,7 @@ libttsmimic_la_SOURCES += \
   src/utils/cst_string.c \
   src/utils/cst_tokenstream.c \
   src/utils/cst_url.c \
+  src/utils/cst_icu.c \
   src/utils/cst_val.c \
   src/utils/cst_val_const.c \
   src/utils/cst_val_user.c \
@@ -770,6 +771,7 @@ headers_HEADERS += \
   include/cst_ffeatures.h \
   include/cst_file.h \
   include/cst_hrg.h \
+  include/cst_icu.h \
   include/cst_item.h \
   include/cst_lexicon.h \
   include/cst_lts.h \
