@@ -1,7 +1,7 @@
 #!/bin/sh
 
 WHAT_TO_RUN="$1"
-HOST_TRIPLET=`./config/config.guess`
+HOST_TRIPLET=`./config.guess`
 WORKDIR="$PWD"
 export MANIFEST_TOOL=:
 
